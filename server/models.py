@@ -4,7 +4,7 @@ from sqlalchemy import CheckConstraint, UniqueConstraint
 
 db = SQLAlchemy()
 
-class Exercise: 
+class Exercise(db.Model): 
     __tablename__ = 'exercises'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -28,3 +28,23 @@ class Exercise:
     def __repr__(self):
         return f"<Exercise {self.id}: {self.name}>"
 
+class Workout(db.Model):
+    __tablename__ = 'workouts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, nullable=False)
+    duration_minutes = db.Column(db.integer, nullable=False)
+    notes = db.Column(db.Text)
+
+    __table_args__ = (
+        CheckConstraint('duration_minites > 0', name  = 'duration_must_bepositive'),
+    )
+
+    @validates('duration_minutes')
+    def validate_duration(self, key, duration):
+        if not isinstance(duration, int) or duration <= 0:
+            raise ValueError('Duration must be a positive integer')
+        return duration
+     
+    def __repr__(self):
+        return f"<Workout {self.id}: {self.date}>"
