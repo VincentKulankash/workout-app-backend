@@ -1,0 +1,20 @@
+#Environments
+venv/
+env/
+.venv/
+
+#python
+__pycache__/
+*.py[cod]
+
+#Flask / Database
+instance/
+*.db
+*.sqlite3
+
+# Environment Variables
+.env
+
+# OS / Editor
+.DS_Store
+.vscode/
