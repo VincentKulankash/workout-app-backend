@@ -32,7 +32,7 @@ class WorkoutExerciseSchema(Schema):
     @validates_schema
     def validate_metrics(self, data, **kwargs):
         if not data.get('reps') and not data.get('sets') and not data.get('duration_seconds'):
-            raise ValueError("You must provide at least one of: reps, sets or duration_seconds.")
+            raise ValidationError("You must provide at least one of: reps, sets or duration_seconds.")
 
 class WorkoutDetailSchema(WorkoutSchema):
     workout_exercises = fields.Method('get_nested_exercises')
